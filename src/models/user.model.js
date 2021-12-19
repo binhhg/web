@@ -2,7 +2,7 @@ module.exports = (joi, mongoose, {joi2MongoSchema, serverHelper}) => {
     const {ObjectId} = mongoose.Types
     const userJoi = joi.object({
         name:joi.string().required(),
-        userName: joi.string().required(),
+        username: joi.string().required(),
         password: joi.string().min(6),
         isAdministrator: joi.number().valid(0, 1).default(0),
         phoneNumber: joi.number(),

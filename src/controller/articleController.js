@@ -29,8 +29,14 @@ module.exports = (container) => {
     }
     const deleteArticle = async (req, res) => {
         try {
-            const {id} = req.params
+            const user = req.user
+            if(!user){
+                return res.status(httpCode.BAD_REQUEST).send('Ban can dang nhap!')
+            }
+            const { id } = req.params
             if (id) {
+                const data = await articleRepo.getArticleById(id)
+
                 await articleRepo.deleteArticle(id)
                 res.status(httpCode.SUCCESS).send({ok: true})
             } else {

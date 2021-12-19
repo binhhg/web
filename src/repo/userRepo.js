@@ -59,6 +59,15 @@ module.exports = (container) => {
     const getUserByUsername = username => {
         return User.findOne({ username }).select('-password')
     }
+    const login = ({
+                       userName,
+                       password
+                   }) => {
+        return User.findOne({
+            userName,
+            password
+        }).select('-password')
+    }
     return {
         addUser,
         getUserById,
@@ -76,6 +85,7 @@ module.exports = (container) => {
         find,
         updateOne,
         bulkWrite,
-        getUserByUsername
+        getUserByUsername,
+        login
     }
 }
