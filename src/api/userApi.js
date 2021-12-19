@@ -9,5 +9,5 @@ module.exports = (app, container) => {
     app.put("/user/changePassword", userController.changePassword)
     app.put("/user/:id", checkAccessToken, userController.updateUser)
     app.delete("/user/:id", checkAccessToken, userController.deleteUser)
-    app.post("/user", checkAccessToken, userController.addUser)
+    app.post("/register", userController.addUser)
 }
