@@ -43,6 +43,7 @@ module.exports = (container) => {
             res.status(httpCode.UNKNOWN_ERROR).end()
         }
     }
+
     const logout = async (req, res) => {
         try {
             const token = req.headers['x-access-token'] || ''

@@ -1,0 +1,46 @@
+login: POST: http://127.0.0.1:8002/user/login
+	{
+	username: string
+	password: string
+} 
+
+{
+    "username": "admin",
+    "password": "123456"
+
+}
+
+{
+    "_id": "61beea0d27820018109812b1",
+    "name": "binh",
+    "isAdministrator": 1,
+    "username": "admin",
+    "createdAt": 1639901709,
+    "__v": 0,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWJlZWEwZDI3ODIwMDE4MTA5ODEyYjEiLCJuYW1lIjoiYmluaCIsImlzQWRtaW5pc3RyYXRvciI6MSwidXNlcm5hbWUiOiJhZG1pbiIsImNyZWF0ZWRBdCI6MTYzOTkwMTcwOSwiX192IjowLCJpYXQiOjE2Mzk5MDE3MTcsImV4cCI6MTYzOTk4ODExN30.ylxpPL_4b7uFDcgJNQr4VlQ3xrzrRVtA8K_I4Gm0s4Q"
+}
+
+req.headers['x-access-token']
+logout: GET: http://127.0.0.1:8002/user/logout
+
+
+register: POST: http://127.0.0.1:8002/register
+
+{
+    "name": "Loc",
+    "username": "BINHHGG",
+    "password": "123456"
+}
+{
+    "msg": "Thêm thành công.",
+    "data": {
+        "_id": "61beefbfbadcff1224d1103e",
+        "name": "Loc",
+        "username": "binhhgg",
+        "password": "jZae727K08KaOmKSgOaGzww/XVqGr/PKEgIMkjrcbJI=",
+        "isAdministrator": 0,
+        "createdAt": 1639903167,
+        "__v": 0
+    }
+}
+
