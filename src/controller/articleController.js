@@ -19,6 +19,7 @@ module.exports = (container) => {
             if (error) {
                 return res.status(httpCode.BAD_REQUEST).send({msg: error.message})
             }
+            
             value.createdBy = req.user._id.toString()
             const data = await articleRepo.addArticle(value)
             res.status(httpCode.CREATED).send(data)

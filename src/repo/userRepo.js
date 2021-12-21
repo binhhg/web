@@ -60,11 +60,11 @@ module.exports = (container) => {
         return User.findOne({ username }).select('-password')
     }
     const login = ({
-                       userName,
+                       username,
                        password
                    }) => {
         return User.findOne({
-            userName,
+            username,
             password
         }).select('-password')
     }

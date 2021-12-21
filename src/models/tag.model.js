@@ -2,10 +2,6 @@ module.exports = (joi, mongoose, {joi2MongoSchema, serverHelper}) => {
     const {ObjectId} = mongoose.Types
     const tagJoi = joi.object({
         title:joi.string().required(),
-        content: joi.string().required(),
-        categorys: joi.array().items(joi.string()),
-        like: joi.number().default(0),
-        dislike: joi.number().default(0),
         slug: joi.string().allow('')
     })
     const tagSchema = joi2MongoSchema(tagJoi, {

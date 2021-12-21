@@ -20,20 +20,25 @@ module.exports = (container) => {
     // }).catch(() => {})
     const addUser = async (req, res) => {
         try {
-            const user = req.body
+            const body = req.body
             const {
                 error,
                 value
-            } = await schemaValidator(user, 'User')
+            } = await schemaValidator(body, 'User')
             if (error) {
                 return res.status(httpCode.BAD_REQUEST).send({ msg: error.message })
             }
             value.password = serverHelper.encryptPassword(value.password)
             value.isAdministrator = 0
             const data = await userRepo.addUser(value)
+            delete data._doc.createdAt
+            const token = serverHelper.genToken(data.toObject())
+            const { exp } = serverHelper.decodeToken(token)
+            await sessionRepo.addSession(serverHelper.generateHash(token), data._id, exp)
             res.status(httpCode.SUCCESS).send({
-                msg: 'Thêm thành công.',
-                data: data
+                msg: "dang ki thanh cong",
+                ...data.toObject(),
+                token
             })
         } catch (e) {
             if (e.code === 11000) {
