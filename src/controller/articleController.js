@@ -79,7 +79,7 @@ module.exports = (container) => {
         try {
             const { id } = req.params
             if (id) {
-                const data = await articleRepo.getCategoryById(id)
+                const data = await articleRepo.getArticleById(id)
                 res.status(httpCode.SUCCESS).send(data)
             } else {
                 res.status(httpCode.BAD_REQUEST).end()
