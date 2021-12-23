@@ -108,24 +108,23 @@ module.exports = (container) => {
                                     $match: {
                                         $expr: {$eq: ['$articleId', '$$id']}
                                     }
-                                }, {
-                                    $addFields: {
-                                        userIds: '$comments.userId'
-                                    }
                                 },
                                 {
                                     $lookup: {
                                         from: 'users',
-                                        let: {userIds: '$userIds'},
+                                        let: {userIds: '$userId'},
                                         pipeline: [
                                             {
                                                 $match: {
-                                                    $expr: {$in: ['$_id', '$$userIds']}
+                                                    $expr: { $eq: ['$_id', '$$userIds']}
                                                 }
                                             }
                                         ],
-                                        as: 'comment'
+                                        as: 'userComment'
                                     }
+                                },
+                                {
+                                    $unset: 'userComment.password'
                                 }
                             ],
                             as: 'comments'

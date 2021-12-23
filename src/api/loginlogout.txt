@@ -2,7 +2,7 @@ login: POST: http://127.0.0.1:8002/user/login
 	{
 	username: string
 	password: string
-} 
+}
 
 {
     "username": "admin",
@@ -44,3 +44,68 @@ register: POST: http://127.0.0.1:8002/register
     }
 }
 
+POST Category: http://127.0.0.1:8002/category
+{
+    "title": "Nhân văn"
+}
+{
+    "_id": "61c4ad731455b5397c0a0414",
+    "title": "Nhân văn",
+    "createdAt": 1640279411,
+    "__v": 0
+}
+POST Article: http://127.0.0.1:8002/article
+{
+    "title": "co ban ve html css",
+    "content": "asdasdadas",
+    "categories": ["61c29692462600245cca452e"], // lấy _id của 1 categories , truyền dạng mảng
+    "tags": ["HTML", "CSS"] // truyền dạng mảng
+}
+{
+    "categories": [
+        "61c29692462600245cca452e"
+    ],
+    "tags": [
+        "61c332db2bffd30230cabe9a",
+        "61c4a82ce2f466b2c9e7214e"
+    ],
+    "_id": "61c4aaeb32cb2148fcf375b9",
+    "title": "co ban ve html css",
+    "content": "asdasdadas",
+    "like": 0,
+    "dislike": 0,
+    "slug": "co ban ve html css",
+    "createdBy": "61beea0d27820018109812b1",
+    "createdAt": 1640278763,
+    "__v": 0
+}
+
+
+GET Article: ví dụ http://127.0.0.1:8002/article/61c4aaeb32cb2148fcf375b9
+{
+    "categories": [
+        "61c29692462600245cca452e"
+    ],
+    "tags": [
+        "61c332db2bffd30230cabe9a",
+        "61c4a82ce2f466b2c9e7214e"
+    ],
+    "_id": "61c4aaeb32cb2148fcf375b9",
+    "title": "co ban ve html css",
+    "content": "asdasdadas",
+    "like": 0,
+    "dislike": 0,
+    "slug": "co ban ve html css",
+    "createdBy": "61beea0d27820018109812b1",
+    "createdAt": 1640278763,
+    "__v": 0
+}
+
+
+POST Comment: http://127.0.0.1:8002/comment
+{
+    "articleId": "61c4aaeb32cb2148fcf375b9",
+    "content": "asdsadasdasdasdsadasdasdasdadấdasdasdasdasdas"
+}
+
+GET Article and comment:

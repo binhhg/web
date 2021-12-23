@@ -12,6 +12,7 @@ module.exports = (container) => {
     const addComment = async (req, res) => {
         try {
             const body = req.body
+            body.userId = req.user._id
             const {
                 error,
                 value
