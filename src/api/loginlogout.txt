@@ -107,5 +107,121 @@ POST Comment: http://127.0.0.1:8002/comment
     "articleId": "61c4aaeb32cb2148fcf375b9",
     "content": "asdsadasdasdasdsadasdasdasdadấdasdasdasdasdas"
 }
-
-GET Article and comment:
+{
+    "_id": "61c4b6211d29e24a94d57eee",
+    "articleId": "61c4aaeb32cb2148fcf375b9",
+    "content": "asdsadasdasdasdsadasdasdasdadấdasdasdasdasdas",
+    "userId": "61beea0d27820018109812b1",
+    "like": 0,
+    "dislike": 0,
+    "createdAt": 1640281633,
+    "updateAt": 1640281633,
+    "__v": 0
+}
+GET Article and comment: http://127.0.0.1:8002/article/comments/61c4aaeb32cb2148fcf375b9
+[
+    {
+        "_id": "61c4aaeb32cb2148fcf375b9",
+        "categories": [
+            "61c29692462600245cca452e"
+        ],
+        "tags": [
+            "61c332db2bffd30230cabe9a",
+            "61c4a82ce2f466b2c9e7214e"
+        ],
+        "title": "co ban ve html css",
+        "content": "asdasdadas",
+        "like": 0,
+        "dislike": 0,
+        "slug": "co ban ve html css",
+        "createdBy": "61beea0d27820018109812b1",
+        "createdAt": 1640278763,
+        "__v": 0,
+        "comments": [
+            {
+                "_id": "61c4b0c3c3867f4a9c40339e",
+                "articleId": "61c4aaeb32cb2148fcf375b9",
+                "content": "ahgsdkashdjad",
+                "userId": "61beea0d27820018109812b1",
+                "like": 0,
+                "dislike": 0,
+                "createdAt": 1640280259,
+                "updateAt": 1640280259,
+                "__v": 0,
+                "userComment": [
+                    {
+                        "_id": "61beea0d27820018109812b1",
+                        "name": "binh",
+                        "isAdministrator": 1,
+                        "username": "admin",
+                        "createdAt": 1639901709,
+                        "__v": 0
+                    }
+                ]
+            },
+            {
+                "_id": "61c4b0cac3867f4a9c4033a0",
+                "articleId": "61c4aaeb32cb2148fcf375b9",
+                "content": "asdsadasdasdasdsadasdasdasdadas",
+                "userId": "61beea0d27820018109812b1",
+                "like": 0,
+                "dislike": 0,
+                "createdAt": 1640280266,
+                "updateAt": 1640280266,
+                "__v": 0,
+                "userComment": [
+                    {
+                        "_id": "61beea0d27820018109812b1",
+                        "name": "binh",
+                        "isAdministrator": 1,
+                        "username": "admin",
+                        "createdAt": 1639901709,
+                        "__v": 0
+                    }
+                ]
+            },
+            {
+                "_id": "61c4b378c39dd730b81f5592",
+                "articleId": "61c4aaeb32cb2148fcf375b9",
+                "content": "asdsadasdasdasdsadasdasdasdadấdasdasdasdasdas",
+                "userId": "61beea0d27820018109812b1",
+                "like": 0,
+                "dislike": 0,
+                "createdAt": 1640280952,
+                "updateAt": 1640280952,
+                "__v": 0,
+                "userComment": [
+                    {
+                        "_id": "61beea0d27820018109812b1",
+                        "name": "binh",
+                        "isAdministrator": 1,
+                        "username": "admin",
+                        "createdAt": 1639901709,
+                        "__v": 0
+                    }
+                ]
+            },
+            {
+                "_id": "61c4b6211d29e24a94d57eee",
+                "articleId": "61c4aaeb32cb2148fcf375b9",
+                "content": "asdsadasdasdasdsadasdasdasdadấdasdasdasdasdas",
+                "userId": "61beea0d27820018109812b1",
+                "like": 0,
+                "dislike": 0,
+                "createdAt": 1640281633,
+                "updateAt": 1640281633,
+                "__v": 0,
+                "userComment": [
+                    {
+                        "_id": "61beea0d27820018109812b1",
+                        "name": "binh",
+                        "isAdministrator": 1,
+                        "username": "admin",
+                        "createdAt": 1639901709,
+                        "__v": 0
+                    }
+                ]
+            }
+        ]
+    }
+]
