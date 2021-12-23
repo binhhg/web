@@ -67,15 +67,17 @@ module.exports = (container) => {
     }
     next()
   }
-  const checkRole = async (req, res) => {
+  const checkRole = async (req, res, next) => {
     try {
       const token = req.headers['x-access-token']
       if(token){
         const user = await serverHelper.verifyToken(token)
         if(user.isAdministrator){
-
+          return next()
         }
+        return res.status(httpCode.BAD_REQUEST).send("admin mới có quyền!")
       }
+      res.status(httpCode.BAD_REQUEST).send('Chua dang nhap!')
     } catch (e) {
       logger.e(e)
       res.status(httpCode.UNKNOWN_ERROR).send({ok: false})

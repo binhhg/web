@@ -10,12 +10,6 @@ module.exports = (joi, mongoose, {joi2MongoSchema, serverHelper}) => {
         tags: joi.array().items(joi.string())
     })
     const articleSchema = joi2MongoSchema(articleJoi, {
-        username: {
-            type: String,
-            unique: true,
-            lowercase: true,
-            index: true
-        },
         categories: [
             {
                 type: ObjectId,

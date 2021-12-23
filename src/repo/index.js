@@ -4,8 +4,9 @@ const repo = (container) => {
     const articleRepo = require('./articleRepo')(container)
     const commentRepo = require('./commentRepo')(container)
     const sessionRepo = require('./sessionRepo')(container)
+    const tagRepo = require('./tagRepo')(container)
     return {
-        userRepo,categoryRepo,articleRepo,commentRepo, sessionRepo
+        userRepo,categoryRepo,articleRepo,commentRepo, sessionRepo, tagRepo
     }
 }
 const connect = (container) => {

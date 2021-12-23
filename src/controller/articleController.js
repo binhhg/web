@@ -8,10 +8,38 @@ module.exports = (container) => {
         }
     } = container.resolve('models')
     const {httpCode, serverHelper} = container.resolve('config')
-    const {articleRepo} = container.resolve('repo')
+    const {articleRepo, tagRepo} = container.resolve('repo')
     const addArticle = async (req, res) => {
         try {
+
+            const { tags } = req.body
+            delete req.body.tags
+            const tagIds = []
+            if(tags) {
+                const arr = []
+                for (const tag of tags) {
+                    const a = {name: tag}
+                    const {error, value} = await schemaValidator(a, 'Tag')
+                    if (error) {
+                        return res.status(httpCode.BAD_REQUEST).json({msg: error})
+                    }
+                    arr.push({
+                        updateOne: {
+                            filter: {name: value.name},
+                            update: value,
+                            upsert: true
+                        }
+                    })
+                }
+                const sp = await tagRepo.bulkWrite(arr)
+                const selectDB = await tagRepo.find({name: {$in: tags}})
+                selectDB.map(i => {
+                    i = i.toObject()
+                    tagIds.push(i._id.toString())
+                })
+            }
             const body = req.body
+            body.tags = [...tagIds]
             const {
                 error,
                 value
@@ -19,7 +47,6 @@ module.exports = (container) => {
             if (error) {
                 return res.status(httpCode.BAD_REQUEST).send({msg: error.message})
             }
-            
             value.createdBy = req.user._id.toString()
             const data = await articleRepo.addArticle(value)
             res.status(httpCode.CREATED).send(data)

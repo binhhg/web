@@ -1,22 +1,10 @@
 module.exports = (joi, mongoose, {joi2MongoSchema, serverHelper}) => {
     const {ObjectId} = mongoose.Types
     const tagJoi = joi.object({
-        title:joi.string().required(),
+        name:joi.string().required(),
         slug: joi.string().allow('')
     })
     const tagSchema = joi2MongoSchema(tagJoi, {
-        username: {
-            type: String,
-            unique: true,
-            lowercase: true,
-            index: true
-        },
-        categories: [
-            {
-                type: ObjectId,
-                ref: 'Category'
-            }
-        ]
     },{
         createdBy: {
             type: ObjectId,
@@ -33,7 +21,7 @@ module.exports = (joi, mongoose, {joi2MongoSchema, serverHelper}) => {
             value
         } = await tagJoi.validate(obj, config)
         if (!error) {
-            value.slug = serverHelper.stringToSlug(value.title)
+            value.slug = serverHelper.stringToSlug(value.name)
         }
         return { error, value }
     }

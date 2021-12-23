@@ -7,5 +7,5 @@ module.exports = (app, container) => {
     app.get("/tag/:id", checkAccessToken, tagController.getTagById)
     app.put("/tag/:id", checkAccessToken, tagController.updateTag)
     app.delete("/tag/:id", checkAccessToken, tagController.deleteTag)
-    app.post("/tag", checkAccessToken, tagController.addTag)
+    app.post("/tag", checkAccessToken, tagController.addTags)
 }
