@@ -5,12 +5,14 @@ module.exports = (container) => {
   const commentController = require('./commentController')(container)
   const authorizationController = require('./authorizationController')(container)
   const tagController = require('./tagController')(container)
+  const uploadController = require('./uploadController')(container)
   return {
     userController,
     categoryController,
     articleController,
     commentController,
     authorizationController,
-    tagController
+    tagController,
+    uploadController
   }
 }

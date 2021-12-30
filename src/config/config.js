@@ -38,6 +38,8 @@ const serverHelper = function () {
   const secretKey = process.env.SECRET_KEY || '2312'
   const TOKEN_TIME = process.env.TOKEN_TIME || '1d'
   const password = 'b{m\\c;zG"ut?j_3C!Q@M'
+  const path = require('path')
+  const multer = require('multer')
   const Cryptr = require('cryptr')
   const cryptr = new Cryptr(password)
 
@@ -98,6 +100,21 @@ const serverHelper = function () {
 
     return str
   }
+  const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'src/public')
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      const fName = file.originalname.split('.')
+      const ext = fName.pop()
+      const name = `${fName.join('')}-${uniqueSuffix}.${ext}`
+      file.pathCustom = `/${name}`
+      cb(null, name)
+    }
+
+  })
+  const upload = multer({ storage: storage })
   return {
     decodeToken,
     encryptPassword,
@@ -107,7 +124,8 @@ const serverHelper = function () {
     isValidToken,
     encrypt,
     decrypt,
-    stringToSlug
+    stringToSlug,
+    upload
   }
 }
 module.exports = {

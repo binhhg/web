@@ -5,5 +5,6 @@ module.exports = (app, container) => {
     require('./commentApi')(app, container)
     require('./authorizationApi')(app, container)
     require('./tagApi')(app, container)
+    require('./uploadApi')(app, container)
 
 }

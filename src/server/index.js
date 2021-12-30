@@ -19,6 +19,7 @@ const start = (container) => {
     app.use(bodyParser.json())
     app.use(helmet())
     app.use(cors())
+    app.use('/public', express.static('src/public'))
     // app.use(verifyAccessToken)
     app.use((err, req, res, next) => {
       reject(new Error('Something went wrong!, err:' + err))

@@ -6,7 +6,8 @@ module.exports = (joi, mongoose, {joi2MongoSchema, serverHelper}) => {
         password: joi.string().min(6),
         isAdministrator: joi.number().valid(0, 1).default(0),
         phoneNumber: joi.number(),
-        email: joi.string()
+        email: joi.string(),
+        image: joi.string()
     })
     const userSchema = joi2MongoSchema(userJoi, {
         username: {
