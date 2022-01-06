@@ -6,8 +6,8 @@ module.exports = (app, container) => {
     app.post("/user/login", userController.login)
     app.get("/user/:id", checkAccessToken, userController.getUserById)
 
-    app.put("/user/changePassword", userController.changePassword)
-    app.put("/user/:id", checkAccessToken, userController.updateUser)
+    app.put("/user/changepassword",checkAccessToken, userController.changePassword)
+    app.put("/user/:id", checkAccessToken, userController.updateSelfInfo)
     app.delete("/user/:id", checkAccessToken, userController.deleteUser)
     app.post("/register", userController.addUser)
 }

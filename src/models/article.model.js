@@ -7,7 +7,8 @@ module.exports = (joi, mongoose, {joi2MongoSchema, serverHelper}) => {
         like: joi.number().default(0),
         dislike: joi.number().default(0),
         slug: joi.string().allow(''),
-        tags: joi.array().items(joi.string())
+        tags: joi.array().items(joi.string()),
+        image: joi.string().allow('')
     })
     const articleSchema = joi2MongoSchema(articleJoi, {
         categories: [

@@ -174,7 +174,7 @@ module.exports = (container) => {
             } = req.query
             page = +page || 1
             perPage = +perPage || 10
-            sort = +sort === 0 ? {_id: 1} : +sort || {_id: -1}
+            sort = +sort === 0 ? {createdAt: 1} : +sort || {createdAt: -1}
             const skip = (page - 1) * perPage
             const search = {...req.query}
             if (ids) {

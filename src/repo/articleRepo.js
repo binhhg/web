@@ -33,7 +33,7 @@ module.exports = (container) => {
         return Article.aggregate(pipe)
     }
     const getArticle = (pipe, limit, skip, sort) => {
-        return Article.find(pipe).limit(limit).skip(skip).sort(sort)
+        return Article.find(pipe).limit(limit).skip(skip).sort(sort).populate('createdBy')
     }
     const getArticleNoPaging = (pipe) => {
         return Article.find(pipe)

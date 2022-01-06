@@ -226,3 +226,44 @@ GET Article and comment: http://127.0.0.1:8002/article/comments/61c4aaeb32cb2148
     }
 ]
 
+get article: http://127.0.0.1:8002/article
+get article theo 1 user: http://127.0.0.1:8002/article?createdBy=61beea0d27820018109812b1
+get article theo 1 category: http://127.0.0.1:8002/article?categories=61c29692462600245cca452e
+get article theo 1 tags: http://127.0.0.1:8002/article?tags=61c332db2bffd30230cabe9a
+
+put acticle: http://127.0.0.1:8002/article/61c4aaeb32cb2148fcf375b9
+sẽ getById trước lấy thông tin như kia xong sửa gì thì chỉ cần thay thế trường đó vào xong gọi api put là được
+
+{
+    "categories": [
+        "61c29692462600245cca452e"
+    ],
+    "tags": [
+        "61c332db2bffd30230cabe9a",
+        "61c4a82ce2f466b2c9e7214e"
+    ],
+    "_id": "61c4aaeb32cb2148fcf375b9",
+    "title": "co ban ve html css abcdef",
+    "content": "asdasdadas ahshhdbbdasaaasda",
+    "like": 0,
+    "dislike": 0,
+    "slug": "co ban ve html css",
+    "createdBy": "61beea0d27820018109812b1",
+    "createdAt": 1640278763,
+    "__v": 0
+}
+
+
+put user: http://127.0.0.1:8002/user/61beea0d27820018109812b1
+{
+    "name": "binhhg",
+    "email": "binhhg",
+    "phoneNumber": 123456789,
+    "image": "nếu cần thì thêm trường này"
+}
+
+đổi password: http://127.0.0.1:8002/user/changepassword
+{
+   "oldPassword": "123456",
+   "newPassword": "1234567"
+}

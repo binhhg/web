@@ -2,7 +2,7 @@ module.exports = (container) => {
     const uploadFile = async (req, res) => {
         try {
             console.log(req.file)
-            const path = req.file.linkPath
+            const path = req.file.pathCustom
             const fileName = req.file.filename
             res.status(200).json({
                 path,

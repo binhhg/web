@@ -174,14 +174,8 @@ module.exports = (container) => {
     const updateSelfInfo = async (req, res) => {
         try {
             const body = req.body
-            delete body.roles
             delete body.username
-            delete body.groups
             delete body.password
-            delete body.roleEmail
-            delete body.under
-            delete body.unit
-            delete body.readonly
             const u = await userRepo.updateUser(req.user._id, body)
             res.status(httpCode.SUCCESS).json({
                 ok: true,
