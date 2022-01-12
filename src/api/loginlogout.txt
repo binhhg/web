@@ -267,3 +267,14 @@ put user: http://127.0.0.1:8002/user/61beea0d27820018109812b1
    "oldPassword": "123456",
    "newPassword": "1234567"
 }
+
+
+
+search article theo  title
+http://127.0.0.1:8002/article?slug=
+search article theo tags, thì gọi api search ra cái tags đấy trong chuyền id vào api thứ 2
+http://127.0.0.1:/tag?slug=
+http://127.0.0.1:8002/article?tags=
+
+Hoặc gọi api http://127.0.0.1:/tag/list để trả ra list các tag rồi a search tags trên front end = filter
+xong truyền id vào api http://127.0.0.1:8002/article?tags=

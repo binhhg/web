@@ -107,7 +107,8 @@ module.exports = (container) => {
                 page,
                 perPage,
                 sort,
-                ids
+                ids,
+                slug
             } = req.query
             page = +page || 1
             perPage = +perPage || 10
@@ -126,6 +127,9 @@ module.exports = (container) => {
             delete search.perPage
             delete search.sort
             const pipe = {}
+            if (slug) {
+                pipe.slug = serverHelper.stringToSlug(slug)
+            }
             Object.keys(search).forEach(i => {
                 const vl = search[i]
                 const pathType = (Tag.schema.path(i) || {}).instance || ''
