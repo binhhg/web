@@ -44,8 +44,10 @@ module.exports = container => {
     const Comment = require('./comment.model')(joi, mongoose, {  joi2MongoSchema })
     const Session = require('./session.model')(joi, mongoose, { joi2MongoSchema })
     const Tag = require('./tag.model')(joi, mongoose, { joi2MongoSchema,serverHelper })
+    const Notification = require('./notification.model')(joi, mongoose, { joi2MongoSchema })
+    const Like = require('./like.model')(joi, mongoose, { joi2MongoSchema })
     const schemas = {
-        User, Category, Article, Comment,Session,Tag
+        User, Category, Article, Comment,Session,Tag,Notification,Like
     }
     const schemaValidator = (obj, type) => {
         const schema = schemas[type]

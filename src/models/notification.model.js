@@ -2,8 +2,8 @@ module.exports = (joi, mongoose, {joi2MongoSchema, serverHelper}) => {
     const {ObjectId} = mongoose.Types
     const notificationJoi = joi.object({
         articleId: joi.string().required(),
-        sendId: joi.string.required(),
-        receiveId: joi.string.required()
+        sendId: joi.string().required(),
+        receiveId: joi.string().required()
     })
     const notificationSchema = joi2MongoSchema(notificationJoi, {
         articleId: {
@@ -35,7 +35,7 @@ module.exports = (joi, mongoose, {joi2MongoSchema, serverHelper}) => {
         }
         return { error, value }
     }
-    const documentModel = mongoose.model('Tag', notificationSchema)
+    const documentModel = mongoose.model('Notification', notificationSchema)
     documentModel.syncIndexes()
     return documentModel
 

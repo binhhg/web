@@ -4,35 +4,33 @@ module.exports = (container) => {
     const {
         schemaValidator,
         schemas: {
-            Comment
+            Notification
         }
     } = container.resolve('models')
     const { httpCode, serverHelper } = container.resolve('config')
-    const { commentRepo } = container.resolve('repo')
-    const addComment = async (req, res) => {
+    const { notificationRepo, articleRepo } = container.resolve('repo')
+    const addNotification = async (req, res) => {
         try {
             const body = req.body
-            body.userId = req.user._id
             const {
                 error,
                 value
-            } = await schemaValidator(body, 'Comment')
+            } = await schemaValidator(body, 'Notification')
             if (error) {
                 return res.status(httpCode.BAD_REQUEST).send({ msg: error.message })
             }
-            const data = await commentRepo.addComment(value)
-
+            const data = await notificationRepo.addNotification(value)
             res.status(httpCode.CREATED).send(data)
         } catch (e) {
             logger.e(e)
             res.status(httpCode.UNKNOWN_ERROR).end()
         }
     }
-    const deleteComment = async (req, res) => {
+    const deleteNotification = async (req, res) => {
         try {
             const { id } = req.params
             if (id) {
-                await commentRepo.deleteComment(id)
+                await notificationRepo.deleteNotification(id)
                 res.status(httpCode.SUCCESS).send({ ok: true })
             } else {
                 res.status(httpCode.BAD_REQUEST).end()
@@ -42,12 +40,12 @@ module.exports = (container) => {
             res.status(httpCode.UNKNOWN_ERROR).send({ ok: false })
         }
     }
-    const getCommentById = async (req, res) => {
+    const getNotificationById = async (req, res) => {
         try {
             const { id } = req.params
             if (id) {
-                const comment = await commentRepo.getCommentById(id)
-                res.status(httpCode.SUCCESS).send(comment)
+                const category = await notificationRepo.getNotificationById(id)
+                res.status(httpCode.SUCCESS).send(category)
             } else {
                 res.status(httpCode.BAD_REQUEST).end()
             }
@@ -56,19 +54,19 @@ module.exports = (container) => {
             res.status(httpCode.UNKNOWN_ERROR).send({ ok: false })
         }
     }
-    const updateComment = async (req, res) => {
+    const updateNotification = async (req, res) => {
         try {
             const { id } = req.params
-            const comment = req.body
+            const category = req.body
             const {
                 error,
                 value
-            } = await schemaValidator(comment, 'Comment')
+            } = await schemaValidator(category, 'Notification')
             if (error) {
                 return res.status(httpCode.BAD_REQUEST).send({ msg: error.message })
             }
-            if (id && comment) {
-                const data = await commentRepo.updateComment(id, value)
+            if (id && category) {
+                const data = await notificationRepo.updateNotification(id, value)
                 res.status(httpCode.SUCCESS).send(data)
             } else {
                 res.status(httpCode.BAD_REQUEST).end()
@@ -78,13 +76,14 @@ module.exports = (container) => {
             res.status(httpCode.UNKNOWN_ERROR).send({ ok: false })
         }
     }
-    const getComment = async (req, res) => {
+    const getNotification = async (req, res) => {
         try {
             let {
                 page,
                 perPage,
                 sort,
-                ids
+                ids,
+                slug
             } = req.query
             page = +page || 1
             perPage = +perPage || 10
@@ -102,10 +101,14 @@ module.exports = (container) => {
             delete search.page
             delete search.perPage
             delete search.sort
+            delete search.slug
             const pipe = {}
+            if(slug){
+                pipe.slug = serverHelper.stringToSlug(slug)
+            }
             Object.keys(search).forEach(i => {
                 const vl = search[i]
-                const pathType = (Comment.schema.path(i) || {}).instance || ''
+                const pathType = (Notification.schema.path(i) || {}).instance || ''
                 if (pathType.toLowerCase() === 'objectid') {
                     pipe[i] = ObjectId(vl)
                 } else if (pathType === 'Number') {
@@ -116,8 +119,8 @@ module.exports = (container) => {
                     pipe[i] = vl
                 }
             })
-            const data = await commentRepo.getComment(pipe, perPage, skip, sort)
-            const total = await commentRepo.getCount(pipe)
+            const data = await notificationRepo.getNotification(pipe, perPage, skip, sort)
+            const total = await notificationRepo.getCount(pipe)
             res.status(httpCode.SUCCESS).send({
                 perPage,
                 skip,
@@ -131,11 +134,22 @@ module.exports = (container) => {
             res.status(httpCode.UNKNOWN_ERROR).send({ ok: false })
         }
     }
+    const getArticle = async (req, res) => {
+        try {
+            const { id } = req.params
+            const data = await articleRepo.getArticleNoPaging({categories: ObjectId(id)})
+            res.status(httpCode.SUCCESS).send(data)
+        } catch (e) {
+            logger.e(e)
+            res.status(httpCode.UNKNOWN_ERROR).send({ok: false})
+        }
+    }
     return {
-        addComment,
-        getComment,
-        getCommentById,
-        updateComment,
-        deleteComment
+        addNotification,
+        getNotification,
+        getNotificationById,
+        updateNotification,
+        deleteNotification,
+        getArticle
     }
 }

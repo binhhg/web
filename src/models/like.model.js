@@ -39,7 +39,7 @@ module.exports = (joi, mongoose, {joi2MongoSchema, serverHelper}) => {
         }
         return { error, value }
     }
-    const documentModel = mongoose.model('Tag', tagSchema)
+    const documentModel = mongoose.model('Like', tagSchema)
     documentModel.syncIndexes()
     return documentModel
 

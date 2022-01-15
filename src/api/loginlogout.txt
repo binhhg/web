@@ -278,3 +278,7 @@ http://127.0.0.1:8002/article?tags=
 
 Hoặc gọi api http://127.0.0.1:/tag/list để trả ra list các tag rồi a search tags trên front end = filter
 xong truyền id vào api http://127.0.0.1:8002/article?tags=
+
+
+like :PUT: http://127.0.0.1:8002/like/like/:id  // id là Id của article
+dislikeL PUT: http://127.0.0.1:8002/like/dislike/:id // id là Id của article

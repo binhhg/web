@@ -6,6 +6,8 @@ module.exports = (container) => {
   const authorizationController = require('./authorizationController')(container)
   const tagController = require('./tagController')(container)
   const uploadController = require('./uploadController')(container)
+  const notificationController = require('./notificationController')(container)
+  const likeController = require('./likeController')(container)
   return {
     userController,
     categoryController,
@@ -13,6 +15,8 @@ module.exports = (container) => {
     commentController,
     authorizationController,
     tagController,
-    uploadController
+    uploadController,
+    notificationController,
+    likeController
   }
 }

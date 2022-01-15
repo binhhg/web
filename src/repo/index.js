@@ -5,8 +5,10 @@ const repo = (container) => {
     const commentRepo = require('./commentRepo')(container)
     const sessionRepo = require('./sessionRepo')(container)
     const tagRepo = require('./tagRepo')(container)
+    const notificationRepo = require('./notificationRepo')(container)
+    const likeRepo = require('./likeRepo')(container)
     return {
-        userRepo,categoryRepo,articleRepo,commentRepo, sessionRepo, tagRepo
+        userRepo,categoryRepo,articleRepo,commentRepo, sessionRepo, tagRepo,notificationRepo,likeRepo
     }
 }
 const connect = (container) => {

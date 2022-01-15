@@ -4,8 +4,6 @@ module.exports = (joi, mongoose, {joi2MongoSchema, serverHelper}) => {
         title:joi.string().required(),
         content: joi.string().required(),
         categories: joi.array().items(joi.string()),
-        like: joi.number().default(0),
-        dislike: joi.number().default(0),
         slug: joi.string().allow(''),
         tags: joi.array().items(joi.string()),
         image: joi.string().allow('')
