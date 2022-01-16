@@ -126,6 +126,7 @@ module.exports = (container) => {
             delete search.page
             delete search.perPage
             delete search.sort
+            delete search.slug
             const pipe = {}
             if (slug) {
                 pipe.slug = new RegExp(serverHelper.stringToSlug(slug), 'gi')
