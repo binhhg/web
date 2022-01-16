@@ -144,7 +144,10 @@ module.exports = (container) => {
                         }
                     }
                 ]
-                const data = await articleRepo.getArticleAgg(pipe)
+                let data = await articleRepo.getArticleAgg(pipe)
+                const like = (await likeRepo.findOne({ articleId: ObjectId(id)})).toObject()
+                data[0].like= like.like
+                data[0].dislike = like.dislike
                 res.status(httpCode.SUCCESS).send(data)
             } else {
                 res.status(httpCode.BAD_REQUEST).end()
