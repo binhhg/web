@@ -128,7 +128,7 @@ module.exports = (container) => {
             delete search.sort
             const pipe = {}
             if (slug) {
-                pipe.slug = serverHelper.stringToSlug(slug)
+                pipe.slug = new RegExp(serverHelper.stringToSlug(slug), 'gi')
             }
             Object.keys(search).forEach(i => {
                 const vl = search[i]
