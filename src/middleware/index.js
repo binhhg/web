@@ -65,7 +65,7 @@ module.exports = (container) => {
         return res.status(httpCode.TOKEN_EXPIRED).json({})
       }
     }
-    next()
+    res.status(httpCode.BAD_REQUEST).send('Ban can dang nhap!')
   }
   const checkRole = async (req, res, next) => {
     try {

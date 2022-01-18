@@ -67,7 +67,7 @@ module.exports = (container) => {
                 const data = await articleRepo.getArticleById(id)
 
                 await articleRepo.deleteArticle(id)
-                await likeRepo.removeLike( {articleId: ObjectId(id)})
+                await likeRepo.removeLike({articleId: ObjectId(id)})
                 res.status(httpCode.SUCCESS).send({ok: true})
             } else {
                 res.status(httpCode.BAD_REQUEST).end()
@@ -144,9 +144,13 @@ module.exports = (container) => {
                         }
                     }
                 ]
+                const updateClick = {
+                    $inc: {clickCount: 1}
+                }
+                await articleRepo.updateArticle(id, updateClick)
                 let data = await articleRepo.getArticleAgg(pipe)
-                const like = (await likeRepo.findOne({ articleId: ObjectId(id)})).toObject()
-                data[0].like= like.like
+                const like = (await likeRepo.findOne({articleId: ObjectId(id)})).toObject()
+                data[0].like = like.like
                 data[0].dislike = like.dislike
                 res.status(httpCode.SUCCESS).send(data)
             } else {
@@ -250,8 +254,8 @@ module.exports = (container) => {
                 }
             })
             let data = await articleRepo.getArticle(pipe, perPage, skip, sort)
-            let listId= data.map(i => i._doc._id.toString())
-            const listLike = await likeRepo.findMany({ articleId: { $in : listId} })
+            let listId = data.map(i => i._doc._id.toString())
+            const listLike = await likeRepo.findMany({articleId: {$in: listId}})
             const total = await articleRepo.getCount(pipe)
             res.status(httpCode.SUCCESS).send({
                 perPage,
