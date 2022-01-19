@@ -354,7 +354,7 @@ module.exports = (container) => {
                 page,
                 skip,
                 sort,
-                ...data
+                data
             })
         } catch (e) {
             logger.e(e)

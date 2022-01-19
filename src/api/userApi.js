@@ -1,7 +1,7 @@
 module.exports = (app, container) => {
     const { userController } = container.resolve('controller')
     const { checkAccessToken, checkRole } = container.resolve('middleware')
-    app.get("/user", checkAccessToken, userController.getListUser)
+    app.get("/user", checkAccessToken, userController.getUser)
     app.get("/user/logout", userController.logout)
     app.post("/user/login", userController.login)
     app.get("/user/:id", checkAccessToken, userController.getUserById)
