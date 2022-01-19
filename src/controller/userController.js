@@ -129,30 +129,30 @@ module.exports = (container) => {
                 articles.forEach(i => {
                     bulkWrite.push({
                         deleteMany: {
-                            filter: { articleId: i._id}
+                            filter: {articleId: i._id}
                         }
                     })
                     bulkWrite1.push({
-                        deleteMany:{
-                            filter: { articleId: i._id}
+                        deleteMany: {
+                            filter: {articleId: i._id}
                         }
                     })
                 })
                 bulkWrite.push({
                     deleteMany: {
-                        filter: { userId: ObjectId(id)}
+                        filter: {userId: ObjectId(id)}
                     }
                 })
                 bulkWrite1.push({
                     updateMany: {
-                        filter: { like: ObjectId(id)},
-                        update: { $pull: { like: ObjectId(id)}}
+                        filter: {like: ObjectId(id)},
+                        update: {$pull: {like: ObjectId(id)}}
                     }
                 })
                 bulkWrite1.push({
                     updateMany: {
-                        filter: { dislike: ObjectId(id)},
-                        update: { $pull: { dislike: ObjectId(id)}}
+                        filter: {dislike: ObjectId(id)},
+                        update: {$pull: {dislike: ObjectId(id)}}
                     }
                 })
                 await likeRepo.bulkWrite(bulkWrite1)
@@ -314,7 +314,7 @@ module.exports = (container) => {
             } = req.query
             page = +page || 1
             perPage = +perPage || 10
-            sort = +sort === 0 ? { _id: 1 } : +sort || { _id: -1 }
+            sort = +sort === 0 ? {_id: 1} : +sort || {_id: -1}
             const skip = (page - 1) * perPage
             let search = {...req.query}
             if (ids) {
@@ -361,6 +361,15 @@ module.exports = (container) => {
             res.status(httpCode.UNKNOWN_ERROR).send({ok: false})
         }
     }
+    const getListUser = async(req, res) => {
+        try {
+            const data = await userRepo.find({ isAdministrator: 0 })
+            res.status(httpCode.SUCCESS).send(data)
+        } catch (e) {
+            logger.e(e)
+            res.status(httpCode.UNKNOWN_ERROR).send({ok: false})
+        }
+    }
     return {
         addUser,
         getUser,
@@ -374,5 +383,6 @@ module.exports = (container) => {
         updateSelfInfo,
         loginViaIp,
         logout,
+        getListUser
     }
 }
