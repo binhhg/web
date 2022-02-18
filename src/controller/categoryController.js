@@ -7,8 +7,75 @@ module.exports = (container) => {
             Category
         }
     } = container.resolve('models')
-    const { httpCode, serverHelper } = container.resolve('config')
-    const { categoryRepo, articleRepo } = container.resolve('repo')
+    const {httpCode, serverHelper} = container.resolve('config')
+    const {categoryRepo, articleRepo} = container.resolve('repo')
+    const example1 = [
+        {
+            updateOne: {
+                filter: { title: "Health" },
+                update: {title: "Health"},
+                upsert: true
+            }
+        },
+        {
+            updateOne: {
+                filter: { title: "Social" },
+                update: {title: "Social"},
+                upsert: true
+            }
+        },
+        {
+            updateOne: {
+                filter: { title: "Location" },
+                update: {title: "Location"},
+                upsert: true
+            }
+        },
+        {
+            updateOne: {
+                filter: { title: "Geography" },
+                update: {title: "Geography"},
+                upsert: true
+            }
+        },
+        {
+            updateOne: {
+                filter: { title: "Technology" },
+                update: {title: "Technology"},
+                upsert: true
+            }
+        },
+        {
+            updateOne: {
+                filter: { title: "Science" },
+                update: {title: "Science"},
+                upsert: true
+            }
+        },
+        {
+            updateOne: {
+                filter: { title: "Education" },
+                update: {title: "Education"},
+                upsert: true
+            }
+        },
+        {
+            updateOne: {
+                filter: { title: "Arts" },
+                update: {title: "Arts"},
+                upsert: true
+            }
+        },
+        {
+            updateOne: {
+                filter: { title: "Various fields" },
+                update: {title: "Various fields"},
+                upsert: true
+            }
+        }
+    ]
+
+    categoryRepo.bulkWrite(example1).catch(() => {})
     const addCategory = async (req, res) => {
         try {
             const body = req.body
@@ -17,7 +84,7 @@ module.exports = (container) => {
                 value
             } = await schemaValidator(body, 'Category')
             if (error) {
-                return res.status(httpCode.BAD_REQUEST).send({ msg: error.message })
+                return res.status(httpCode.BAD_REQUEST).send({msg: error.message})
             }
             const data = await categoryRepo.addCategory(value)
             res.status(httpCode.CREATED).send(data)
@@ -28,21 +95,21 @@ module.exports = (container) => {
     }
     const deleteCategory = async (req, res) => {
         try {
-            const { id } = req.params
+            const {id} = req.params
             if (id) {
                 await categoryRepo.deleteCategory(id)
-                res.status(httpCode.SUCCESS).send({ ok: true })
+                res.status(httpCode.SUCCESS).send({ok: true})
             } else {
                 res.status(httpCode.BAD_REQUEST).end()
             }
         } catch (e) {
             logger.e(e)
-            res.status(httpCode.UNKNOWN_ERROR).send({ ok: false })
+            res.status(httpCode.UNKNOWN_ERROR).send({ok: false})
         }
     }
     const getCategoryById = async (req, res) => {
         try {
-            const { id } = req.params
+            const {id} = req.params
             if (id) {
                 const category = await categoryRepo.getCategoryById(id)
                 res.status(httpCode.SUCCESS).send(category)
@@ -51,19 +118,19 @@ module.exports = (container) => {
             }
         } catch (e) {
             logger.e(e)
-            res.status(httpCode.UNKNOWN_ERROR).send({ ok: false })
+            res.status(httpCode.UNKNOWN_ERROR).send({ok: false})
         }
     }
     const updateCategory = async (req, res) => {
         try {
-            const { id } = req.params
+            const {id} = req.params
             const category = req.body
             const {
                 error,
                 value
             } = await schemaValidator(category, 'Category')
             if (error) {
-                return res.status(httpCode.BAD_REQUEST).send({ msg: error.message })
+                return res.status(httpCode.BAD_REQUEST).send({msg: error.message})
             }
             if (id && category) {
                 const data = await categoryRepo.updateCategory(id, value)
@@ -73,7 +140,7 @@ module.exports = (container) => {
             }
         } catch (e) {
             logger.e(e)
-            res.status(httpCode.UNKNOWN_ERROR).send({ ok: false })
+            res.status(httpCode.UNKNOWN_ERROR).send({ok: false})
         }
     }
     const getCategory = async (req, res) => {
@@ -87,14 +154,14 @@ module.exports = (container) => {
             } = req.query
             page = +page || 1
             perPage = +perPage || 10
-            sort = +sort === 0 ? { _id: 1 } : +sort || { _id: -1 }
+            sort = +sort === 0 ? {_id: 1} : +sort || {_id: -1}
             const skip = (page - 1) * perPage
-            const search = { ...req.query }
+            const search = {...req.query}
             if (ids) {
                 if (ids.constructor === Array) {
-                    search.id = { $in: ids }
+                    search.id = {$in: ids}
                 } else if (ids.constructor === String) {
-                    search.id = { $in: ids.split(',') }
+                    search.id = {$in: ids.split(',')}
                 }
             }
             delete search.ids
@@ -103,7 +170,7 @@ module.exports = (container) => {
             delete search.sort
             delete search.slug
             const pipe = {}
-            if(slug){
+            if (slug) {
                 pipe.slug = serverHelper.stringToSlug(slug)
             }
             Object.keys(search).forEach(i => {
@@ -131,12 +198,12 @@ module.exports = (container) => {
             })
         } catch (e) {
             logger.e(e)
-            res.status(httpCode.UNKNOWN_ERROR).send({ ok: false })
+            res.status(httpCode.UNKNOWN_ERROR).send({ok: false})
         }
     }
     const getArticle = async (req, res) => {
         try {
-            const { id } = req.params
+            const {id} = req.params
             const data = await articleRepo.getArticleNoPaging({categories: ObjectId(id)})
             res.status(httpCode.SUCCESS).send(data)
         } catch (e) {
